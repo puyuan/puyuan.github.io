@@ -17,7 +17,7 @@ Logs from various servers and clients were collected (in a huge mess) and dumped
 The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ## Fluentd
-I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
+Before Fluentd, I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
 
 So, Fluentd to the rescue. I connected the Flume pipeline to Fluentd to take advantage of its filtering plugins. Fluentd's extensive parser filtering plugin is what I needed. 
 
@@ -55,7 +55,9 @@ Below we will talk about how to keep those dismissed entries as well using the r
 Rewrite Tag Filter is not written in Flume's official documentation, but to me, it plays an important role.
 https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
-Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
+It tags different events, so you have a way to categorize all log events in the pipeline. 
+
+For example:
 
 Input:
 {% highlight javascript %}
