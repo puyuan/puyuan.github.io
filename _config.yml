@@ -2,8 +2,8 @@ markdown: redcarpet
 highlighter: null
 permalink: /:title
 
-url: http://puyuan.github.io/weblog
-baseurl: /weblog
+url: http://puyuan.github.io
+baseurl: /
 
 redcarpet:
   extensions: [strikethrough, tables]
