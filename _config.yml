@@ -6,8 +6,8 @@ markdown: redcarpet
 highlighter: pygments
 logo: false
 paginate: 15
-baseurl: /
-domain_name: 'http://yourblog-domain.com'
+baseurl: /weblog
+domain_name: 'http://http://puyuan.github.io/'
 google_analytics: 'UA-XXXXXXXX-X'
 
 # Details for the RSS feed generator
