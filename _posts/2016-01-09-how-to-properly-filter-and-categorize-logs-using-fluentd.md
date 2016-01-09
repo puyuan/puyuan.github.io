@@ -4,7 +4,9 @@ title: How to Properly Filter and Categorize Logs using Fluentd
 categories:
 - fluentd
 ---
+
 The myth of big data is unstructured data (Variety, Veracity) is OK. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
+
 ---
 
 ## Background
