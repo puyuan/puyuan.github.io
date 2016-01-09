@@ -1,6 +1,15 @@
-# General Jekyll Config
+name: Your New Jekyll Site
+description: Blogging about stuffs
+meta_description: "Your New Jekyll Site, Blogging about stuffs"
+
+markdown: redcarpet
 highlighter: pygments
-baseurl: /weblog
-url: http://puyuan.github.io/weblog/
-lsi: false
-exclude: [LICENSE, CNAME, README.md, .gitignore, Gemfile, Gemfile.lock]
+logo: false
+paginate: 15
+baseurl: /
+domain_name: 'http://yourblog-domain.com'
+google_analytics: 'UA-XXXXXXXX-X'
+
+# Details for the RSS feed generator
+url:            'blog url'
+author:         'Your Name'
