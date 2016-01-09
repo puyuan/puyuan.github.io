@@ -25,9 +25,13 @@ So, Fluentd to the rescue. I connected the flume pipeline to fluentd to take adv
 
 The grep plugin filters out messages like in linux grep. Trust me, there will be some misconceptions as I explain it below. 
 
+Input: 
+{% highlight javascript %}
+foo.bar { "host": "server01", "message": "login failure for user xxxx"}
+foo.bar { "host": "server03", "message": "create account for user xxxx"}
+{% endhighlight %}
+
 {% highlight bash %}
-Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
-       foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 
 <match foo.bar.**>
   type grep
@@ -36,8 +40,13 @@ Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxx
   add_tag_prefix greped
 </match>
 
-Output: greped.foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
 
+{% endhighlight %}
+
+Output:
+
+{% highlight javascript %}
+greped.foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
 {% endhighlight %}
 
 When a record is dismissed by grep, say,  the 2nd entry above,  "create account for user xxx", it will be removed from the pipeline. It won't even be kept in foo.bar.logs event. Grep keeps the records you are interested, while removing all other records from the pipeline. 
