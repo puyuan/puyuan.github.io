@@ -22,7 +22,7 @@ So, Fluentd to the rescue. I connected the flume pipeline to fluentd to take adv
 
 The grep plugin filters out messages like in linux grep. Trust me, there will be some misconceptions as I explain it below. 
 
-{% highlight %}
+{% highlight bash %}
 Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
        foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 
@@ -47,7 +47,7 @@ https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
 Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
 
-{% highlight %}
+{% highlight bash %}
 Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
        foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 
