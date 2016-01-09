@@ -1,15 +1,13 @@
-name: Paul Yuan's webLog
-description: Software and Data
-meta_description: "Blogging about stuff"
-
 markdown: redcarpet
-highlighter: pygments
-logo: false
-paginate: 15
-baseurl: /weblog
-domain_name: 'http://http://puyuan.github.io/'
-google_analytics: 'UA-XXXXXXXX-X'
+highlighter: null
+permalink: /:title
 
-# Details for the RSS feed generator
-url:            'blog url'
-author:         'Your Name'
+url: http://puyuan.github.io/weblog
+baseurl: /weblog
+
+redcarpet:
+  extensions: [strikethrough, tables]
+
+sass:
+  sass_dir: public/css
+  style: :compressed
