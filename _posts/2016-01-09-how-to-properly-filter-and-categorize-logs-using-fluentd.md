@@ -31,16 +31,14 @@ foo.bar { "host": "server01", "message": "login failure for user xxxx"}
 foo.bar { "host": "server03", "message": "create account for user xxxx"}
 {% endhighlight %}
 
-{% highlight bash %}
-
+Config:
+{% highlight xml%}
 <match foo.bar.**>
   type grep
   input_key message
   regexp login
   add_tag_prefix greped
 </match>
-
-
 {% endhighlight %}
 
 Output:
@@ -60,13 +58,13 @@ https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
 
 Input:
-{% highlight bash %}
+{% highlight javascript %}
 foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
 foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 {% endhighlight %}
 
 Config:
-{% highlight bash %}
+{% highlight xml %}
 <match foo.bar.logs>
   type rewrite_tag_filter
   rewriterule1  login  login.foo.bar
@@ -75,7 +73,7 @@ Config:
 {% endhighlight %}
 
 Output:
-{% highlight bash %}
+{% highlight javascript  %}
 login.foo.bar{ "host": "server01", "message": "login failure for user xxxx"}
 remaining.foo.bar{ "host": "server03", "message": "create account for user xxxx"}
 {% endhighlight %}
