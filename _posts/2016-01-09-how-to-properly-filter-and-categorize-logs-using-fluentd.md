@@ -59,19 +59,25 @@ https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
 Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
 
+Input:
 {% highlight bash %}
-Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
-       foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
+foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
+foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
+{% endhighlight %}
 
+Config:
+{% highlight bash %}
 <match foo.bar.logs>
   type rewrite_tag_filter
   rewriterule1  login  login.foo.bar
   rewriterule2   *     remaining.foo.bar
 </match>
+{% endhighlight %}
 
-Output: login.foo.bar{ "host": "server01", "message": "login failure for user xxxx"}
-        remaining.foo.bar{ "host": "server03", "message": "create account for user xxxx"}
-
+Output:
+{% highlight bash %}
+login.foo.bar{ "host": "server01", "message": "login failure for user xxxx"}
+remaining.foo.bar{ "host": "server03", "message": "create account for user xxxx"}
 {% endhighlight %}
 
 From the above example, all logs are kepts but applied different tags. That is useful when you have unstructured, uncategorized logs coming through the pipeline. I use this extensively to mark different apache events coming through the pipeline, which we later parse it. 
