@@ -3,7 +3,7 @@ highlighter: null
 permalink: /:title
 
 url: http://puyuan.github.io
-baseurl: /
+baseurl: 
 
 redcarpet:
   extensions: [strikethrough, tables]
