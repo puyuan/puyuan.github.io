@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to Properly Filter and Categorize Logs using Fluentd
+title: Properly Filtering and Categorizing Logs using Fluentd
 categories:
 - fluentd
 ---
