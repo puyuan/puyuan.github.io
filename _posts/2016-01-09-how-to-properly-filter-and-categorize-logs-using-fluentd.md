@@ -22,7 +22,7 @@ So, Fluentd to the rescue. I connected the flume pipeline to fluentd to take adv
 
 The grep plugin filters out messages like in linux grep. Trust me, there will be some misconceptions as I explain it below. 
 
-```
+{% highlight }
 Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
        foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 
@@ -35,7 +35,7 @@ Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxx
 
 Output: greped.foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
 
-```
+{% endhighlight }
 
 When a record is dismissed by grep, say,  the 2nd entry above,  "create account for user xxx", it will be removed from the pipeline. It won't even be kept in foo.bar.logs event. Grep keeps the records you are interested, while removing all other records from the pipeline. 
 
@@ -47,7 +47,7 @@ https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
 Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
 
-```
+{% highlight }
 Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
        foo.bar.logs { "host": "server03", "message": "create account for user xxxx"}
 
@@ -60,7 +60,7 @@ Input: foo.bar.logs { "host": "server01", "message": "login failure for user xxx
 Output: login.foo.bar{ "host": "server01", "message": "login failure for user xxxx"}
         remaining.foo.bar{ "host": "server03", "message": "create account for user xxxx"}
 
-```
+{% endhighlight }
 
 From the above example, all logs are kepts but applied different tags. That is useful when you have unstructured, uncategorized logs coming through the pipeline. I use this extensively to mark different apache events coming through the pipeline, which we later parse it. 
 
