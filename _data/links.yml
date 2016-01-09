@@ -1,5 +1,5 @@
 - url: /weblog
   title: Home
 
-- url: about
+- url: /weblog/about
   title: About
