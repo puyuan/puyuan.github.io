@@ -5,7 +5,7 @@ categories:
 - fluentd
 ---
 
-The myth of big data is unstructured data (Variety, Veracity) is OK. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
+The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ---
 
@@ -14,7 +14,7 @@ The myth of big data is unstructured data (Variety, Veracity) is OK. But when do
 In my past projects, analytics was an important requirement, but could't be clearly defined until real data was produced. Everyone knew logs have to be written for debugging and analytics later on, but no clear log structure and content was assumed. 
 Logs from various servers and clients were collected (in a huge mess) and dumped on to Hadoop, and everyone hoped MapReduce will work its magic.
 
-The myth of big data is unstructured data (Variety, Veracity) is OK. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
+The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ## Fluentd
 I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
