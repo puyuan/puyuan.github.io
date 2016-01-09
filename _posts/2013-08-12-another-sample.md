@@ -1,44 +1,22 @@
 ---
 layout: post
-title: Another sample
+title: How to Properly Filter and Categorize Logs using Fluentd
 categories:
-- blog
+- fluentd
 ---
 
-Tattooed roof party *vinyl* freegan single-origin coffee wayfarers tousled, umami yr 
-meggings hella selvage. Butcher bespoke seitan, cornhole umami gentrify put a bird 
-on it occupy trust fund. Umami whatever kitsch, locavore fingerstache Tumblr pork belly
-[keffiyeh](#). Chia Echo Park Pitchfork, Blue Bottle [hashtag](#) stumptown skateboard selvage 
-mixtape. Echo Park retro butcher banjo cardigan, seitan flannel Brooklyn paleo fixie 
-Truffaut. Forage mustache Thundercats next level disrupt. Bicycle rights forage tattooed
-chia, **wayfarers** swag raw denim hashtag biodiesel occupy gastropub!
 
----
+# Background
 
-# It's all in the game.
+In the projects I have worked on, data analytics usually came at the final stage of the product design. Log processing wasn't really standardized until frameworks like Flume, Fluentd, and Scribe emerged (Very recently). Not many companies know how to design the analytics properly. 
 
-## You come at the king, you best not miss.
+In my past projects, log data was simply collected from various servers and clients and dumped on to Hadoop and S3. Different types of unstructured events were mingled together, and basically filtered and crunched through by hive or mapreduce like frameworks. 
 
-### Be subtle with it, man. You know what subtle means?
+The myth of big data is unstructured data is OK. But when doing analytics, unstructured data is not OK, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
-VHS post-ironic cred **bespoke** banjo. Yr wayfarers literally gentrify, flexitarian fap 
-dreamcatcher plaid cornhole Intelligentsia paleo. Beard try-hard direct trade, shabby chic 
-Helvetica `look ma, I can code`. Lo-fi American Apparel tattooed [Vice](#) tofu, yr vinyl. 
-Williamsburg butcher hella mumblecore fixie mlkshk, cliche wolf keytar mixtape kitsch banh mi 
-salvia. High Life Odd Future *chambray* kale chips hoodie, cray pop-up. Helvetica narwhal 
-iPhone try-hard jean shorts.
+# Fluentd
+I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log framework, but when it comes to tagging, filtering and structuring log, its configurations are complex. 
 
-> This is a quote from someone famous about productivity
+So, Fluentd to the rescue. I connected the flume pipeline to fluentd to take advantage of its filtering plugins. Initially, I had some misconceptions of filters like grep, so here I will discuss some plugins that are useful. 
+ 
 
-
-Syntax highlighting with Solarized theme.
-
-{% highlight ruby %}
-class User < ActiveRecord::Base
-  attr_accessible :email, :name
-
-  ... tons of other crap ...
-
-end
-
-{% endhighlight %}
