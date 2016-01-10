@@ -5,25 +5,26 @@ categories:
 - fluentd
 ---
 
-The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
+The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed for processing. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ---
 
 ## Background
 
-In my past projects, analytics was an important requirement, but could't be clearly defined until real data was produced. Everyone knew logs have to be written for debugging and analytics later on, but no clear log structure and content was assumed. 
-Logs from various servers and clients were collected (in a huge mess) and dumped on to Hadoop, and everyone hoped MapReduce will work its magic.
+In my past projects, analytics was an important requirement, but could't be clearly defined until real data was available to be explored. Everyone knew logs have to be written for debugging and analytics later on, but to be written in a analytics-ready structure was usually an afterthought.  
+
+Often, Logs from various servers and clients were collected (in a huge mess) and dumped on to Hadoop, and everyone hoped MapReduce will work its magic.
 
 The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ## Fluentd
-Before Fluentd, I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
+I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
 
-So, Fluentd to the rescue. I connected the Flume pipeline to Fluentd to take advantage of its filtering plugins. Fluentd's extensive parser filtering plugin is what I needed. 
+So, Fluentd to the rescue. To leverage existing Flume framework, I connected Flume to Fluentd to take advantage of its filtering plugins. Flume's fluentd connector made that easy, so I could use Fluentd's extensive parser filtering plugin. 
 
 ## Grep Plugin
 
-The grep plugin filters out messages like in linux grep, and is the first thing someone may look at. Trust me, there will be some misconceptions as I explain it below. 
+The grep plugin filters out messages like in linux grep, and is the first thing someone may look at for filtering messages. But apparently, it removed remaining messages which I would love to keep. Below, I explain the misconception. 
 
 Input: 
 {% highlight javascript %}
@@ -55,9 +56,7 @@ Below we will talk about how to keep those dismissed entries as well using the r
 Rewrite Tag Filter is not written in Flume's official documentation, but to me, it plays an important role.
 https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
-It tags different events, so you have a way to categorize all log events in the pipeline. 
-
-For example:
+Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
 
 Input:
 {% highlight javascript %}
@@ -81,6 +80,9 @@ remaining.foo.bar{ "host": "server03", "message": "create account for user xxxx"
 {% endhighlight %}
 
 From above, all logs are kepts but applied different tags. That is useful when you have uncategorized logs coming through the pipeline. I use this extensively to mark different apache events coming through the pipeline, which can later be parsed.
+
+## Conclusion
+ Pick grep filter when you are interested only in certain events. Use rewrite filter for categorization. 
 
 
 
