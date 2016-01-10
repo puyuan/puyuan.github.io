@@ -18,7 +18,7 @@ Often, Logs from various servers and clients were collected (in a huge mess) and
 The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ## Fluentd
-I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
+Prior to using Fluentd, I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
 
 So, Fluentd to the rescue. To leverage existing Flume framework, I connected Flume to Fluentd to take advantage of its filtering plugins. Flume's fluentd [connector](https://github.com/cosmo0920/flume-ng-fluentd-sink) made that easy, so I could use Fluentd's extensive parser filtering plugin. 
 
