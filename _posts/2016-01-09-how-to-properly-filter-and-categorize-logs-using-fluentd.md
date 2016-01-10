@@ -56,7 +56,7 @@ Below we will talk about how to keep those dismissed entries as well using the r
 Rewrite Tag Filter is not written in Flume's official documentation, but to me, it plays an important role.
 https://github.com/fluent/fluent-plugin-rewrite-tag-filter
 
-Its categorizes log events into different tags, so you have a way of keeping all the entries but applying different tags. 
+It can tag different log entries, so you can categorize according to log types. Ofcourse, this is assuming your log is mingled together like in my case. A better design is to tag the logs at source, but that's another story. 
 
 Input:
 {% highlight javascript %}
