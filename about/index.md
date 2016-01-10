@@ -14,4 +14,3 @@ I started out as a frontend person and moved to the backend. Technology is alway
 
 I find constant joy in building and creating new things. 
 
-I currently reside in Taipei, Taiwan
