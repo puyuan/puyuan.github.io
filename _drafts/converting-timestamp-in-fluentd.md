@@ -1,3 +1,10 @@
+---
+layout: post
+title: Converting epoch timestamps in Fluentd
+categories:
+- fluentd
+---
+
 Fluentd automatically appends timestamp at time of ingestion, but often you want to leverage the timestamp in existing log records for accurate time keeping. When 
 ingesting, if your timestamp is in some standard format, you can use the **time_format** option in in_tail, parser plugins to extract it.
 
@@ -48,5 +55,8 @@ tag parsed.json.log
 </match>
 
 {% endhighlight %}
+1. First you parse the json while ignoring the time_key. 
+2. Divide the time_key field by 1000
+3. Run the parser plugin again to set the time key. This is required for time_key to be recognized. 
 
-First you parse the json while ignoring the time_key. Then divide the time_key field by 1000, and lastly run the parser plugin again to set the time key. I think this is a long-winded hack, hopefully it can be improved in future versions. 
+I think this is a long-winded hack, hopefully it can be improved in future versions. 
