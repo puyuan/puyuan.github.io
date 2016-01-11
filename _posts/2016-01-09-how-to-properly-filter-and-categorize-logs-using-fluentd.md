@@ -5,11 +5,7 @@ categories:
 - fluentd
 ---
 
-The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed for processing. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
-
----
-
-## Background
+## Overview
 
 In my past projects, analytics was an important requirement, but could't be clearly defined until real data was available to be explored. Everyone knew logs have to be written for debugging and analytics later on, but to be written in a analytics-ready structure was usually an afterthought.  
 
