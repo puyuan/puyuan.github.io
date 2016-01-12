@@ -7,20 +7,20 @@ categories:
 
 ## Overview
 
-In my past projects, analytics was an important requirement, but could't be clearly defined until real data was available to be explored. Everyone knew logs have to be written for debugging and analytics later on, but to be written in a analytics-ready structure was usually an afterthought.  
+In my past projects, analytics was an important requirement, but could't be clearly defined until real data was available. Everyone knew logs have to be written for debugging, and later on for analytics, but to be structured for analytics was usually an after-thought.
 
-Often, Logs from various servers and clients were collected (in a huge mess) and dumped on to Hadoop, and everyone hoped MapReduce will work its magic.
+Often, logs from various servers and clients were collected (in a huge mess) and dumped on to Hadoop, and everyone hoped MapReduce will work its magic.
 
 The myth that big data is unstructured data (Variety, Veracity) is well-known. But when doing analytics, unstructured data is not effective, some sort of structure is needed. Rather than pushing the categorization and filtering of data at the final stage (e.g map reduce), categorizing data as it comes through the log pipeline (even better, create structure) is beneficial in the long run.  
 
 ## Fluentd
 Prior to using Fluentd, I used Flume extensively to move log data to S3. Flume is no doubt a robust, fault tolerant log transport framework, but when it comes to tagging, filtering and structuring logs, its certainly not the best tool. 
 
-So, Fluentd to the rescue. To leverage existing Flume framework, I connected Flume to Fluentd to take advantage of its filtering plugins. Flume's fluentd [connector](https://github.com/cosmo0920/flume-ng-fluentd-sink) made that easy, so I could use Fluentd's extensive parser filtering plugin. 
+So, Fluentd to the rescue. To leverage existing Flume framework, I connected Flume to Fluentd to take advantage of its filtering plugins. Flume's fluentd [connector](https://github.com/cosmo0920/flume-ng-fluentd-sink) made that easy, so I could use Fluentd's extensive parser/filtering plugins. 
 
 ## Grep Plugin
 
-The grep plugin filters out messages like in linux grep, and is the first thing someone may look at for filtering messages. But apparently, it removed remaining messages which I would love to keep. Below, I explain the misconception. 
+The grep plugin filters out messages like in linux grep, and is the first thing someone may look at for filtering messages. But apparently, it removed remaining messages which I would love to keep. Below, I explain my initial misconceptions. 
 
 Input: 
 {% highlight javascript %}
@@ -44,7 +44,7 @@ Output:
 greped.foo.bar.logs { "host": "server01", "message": "login failure for user xxxx"}
 {% endhighlight %}
 
-When a record is dismissed by grep, say,  the 2nd entry above,  "create account for user xxx", it will be removed from the pipeline. It won't even be kept in foo.bar.logs event. Grep keeps the records you are interested, while removing all other records from the pipeline. 
+Initially I thought grep would leave the 2nd messages above intact:  "create account for user xxx", in its original tag, but it was actually removed from the pipeline. i.e. it won't even be kept in foo.bar event. Grep keeps the records you are interested, while removing all other records from the pipeline. 
 
 Below we will talk about how to keep those dismissed entries as well using the rewrite tag filter plugin. 
 
