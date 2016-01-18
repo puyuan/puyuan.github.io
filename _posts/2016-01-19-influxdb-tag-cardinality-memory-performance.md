@@ -25,7 +25,7 @@ Here is a post on this [issue](https://groups.google.com/forum/?utm_medium=email
 
 Voila, if this has been clearly written in the documentation next to tag usage, this could have saved a lot time. Basically, influxdb constructs an inverted index in memory, growing with the cardinality of the tags. 
 
-In essence, I was defining sessionIds as tags, which is highly dynamic. In another measurement, I had three tags useragent fields, e.g. browser, os, device. 
+In essence, I was defining sessionIds as tags, which is highly dynamic. In another measurement, I had three  useragent  related tags, e.g. browser, os, device. 
 
 When influxdb counts cardinality in a Measurement, it counts the combination of all tags. For example, if my measurement has the following tags: 3 os, 200 devices, 3 browsers, then the cardinality is  
   > 3x200x3=1800.  
