@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Re-reading a text book:  Data Mining Concepts and Techniques
+title: Re-reading a text book - Data Mining Concepts and Techniques
 categories:
 - data mining
 ---
