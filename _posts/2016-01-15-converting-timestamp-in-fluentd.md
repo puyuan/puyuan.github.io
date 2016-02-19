@@ -40,6 +40,7 @@ What if your format is milliseconds. Fluentd currently doesn't have a format str
 
 <filter raw.json.log>
   @type record_transformer
+  enable_ruby
   <record>
     timesecond "${some_time_key/1000}"
   </record>
