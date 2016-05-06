@@ -40,6 +40,9 @@ After working on big data pipelines for more than a year, I want to writeup a le
 ### Devops
  Again, use tool like puppet, Ansible to deploy frameworks and configuration. Never patch server by hand, alot of data folks like patching because of the ad-hoc nature of their work. Always patch the devop code e.g. Ansible, and deploy on to server. 
  
+### Design for testing
+  Same as writing software, design your pipeline for testing. For example, when using S3, hadoop, create a seperate folder, bucket etc.. for testing. When you deploy on lab, staging environment , configure it so it writes to the test bucket. Design tools for QA team to verify data in the test bucket. In fact, you can have your operations,  QA  team to test your pipeline, without the data team involved at every stage. i.e. waiting at the pipeline to see if data comes out. QA can do that for you at their prefered schedule. 
+ 
 ### Bulk loading
  We love streaming right to our target sink. Who hates realtime.  But sometimes database crash, pipeline fails. Bulk loading allows you to recover data from Hadoop S3, so have that in place. 
  
