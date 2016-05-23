@@ -1,0 +1,54 @@
+- Start to use Flume to transport logs
+- Need to transform logs, unstructured and structured
+- Started evaluating logstash and fluentd. 
+- Fluentd is easier to use, in terms of installation and  learning to write the configuration files. 
+- documentation is cleaner, logstash documentation reads like a book. 
+- At the high level the features are very similar, with tons of community contributed plugin. 
+
+We continue to use flume:
+- Flume is written in Java, supports windows well. 
+- Part of our deployment infrastructure, so not entirely phasing out
+- Flume is great at transactional processing, data does not get lost when processes shutdown. In flume there is concept of spooling directory, even when flume shutsdown, we have high certainty of recovering data. 
+- In fluentd, you tail log files. But when fluentd crashed, the logs may already be rotated several times. We are not sure how the robustness compares. 
+
+What we like about fluentd
+  - easy to write configuration
+  - we use the tail and parser plugin alot, i think parsing feature is great. Fluentular helped us alot. Focus on parsing, rather than writing alot of scripts to load file, close file. 
+  - its easier to adopt community supported plugins
+
+What we don't like. 
+  - debugging is not as easy as we liked. there are log messages, but its hard to visualize where in the flow something went wrong. Sometimes its looking at errors and guessing where something might have gone run. 
+  - timestamp is second interval only - can't parse millisecond logs, cause problem with timeseries database. 
+
+
+
+
+We started big data couple of years back, and the current framework was vastly different when it initially started. 
+Initially, Flume was chosen to transport logs from servers to Hadoop. Data cleaning and preprocessing happens at the mapreduce stage and we figured it was a pain to parse data in hadoop. 
+
+Later we decided parsing should start much earlier, by enforcing a json format at the source, and filtering into different categories as it is written to s3. We decided to write parsing logic in Flume, but it had awkward syntax, doing it in a properties file. 
+
+We evaluated logstash and fluentd, turns out fluentd's installation, documentation and config file syntax was more intuitive, so we stick to fluentd. Otherwise, we think both are comparable. 
+
+We still continue to use flume, because of its nice support for windows, and for its transactional reliability, the spoolingdirectory.  There is high chance of recovery in case of process, network failures. We don't think fluentd's tail input is reliable enough, if fluentd crashes. 
+
+We think fluentd's parser, tail plugin are great, as well as support for many sinks. 
+We use fluentd for ETL, which I think serves nicely. 
+
+We also use fluentd as a pure loading system from S3. e.g. when data warehouse crashed, we can recover the data from s3(the single source of truth). But because there is no S3 input plugin, so we have to use AWS cli plus tail to implement that. We would upvote for a s3 input. 
+
+We had a problem with no millisecond support for timestamps. That caused a problem in our time series database, in which they time is a key. Without millisecond support, it means many of our data within the same second is duplicated. We have a workaround to solve the problem, but wish it was built in. 
+
+We know that fluentd supports multiple programming language, but mostly on the server side. Recently, we want record data from client side javascript, like google analytics, but figured out the solution was not avaible in fluentd. We did figure out splunk has a javascript tracker, and a server side node.js that can connect to splunk, or fluentd if you want. 
+
+splunk-demo-collector-for-analyticsjs  is the github project name. 
+
+We think third party solutions like GA makes it hard to integrate with out backend data. 
+
+
+
+
+
+
+  
+ 
